@@ -24,6 +24,10 @@ namespace MineSweeper
             for (int j = 0; j < 5; j++)
             {
                 int randomNumber = random.Next(1, 26);
+                while (bombList.Contains(randomNumber))
+                {
+                     randomNumber = random.Next(1, 26);
+                }
                 bombList.Add(randomNumber);
 
 
@@ -59,7 +63,6 @@ namespace MineSweeper
         {
             int k = 0;
             Button btn = sender as Button;
-            List<int> test = sender as List<int>;
             int id = btn.TabIndex;
             List<int> surroundList = new List<int>();
             surroundList.Add(id - 6);
@@ -88,7 +91,11 @@ namespace MineSweeper
             btn.Text = Convert.ToString(k);
             //id = ((Button)sender).TabIndex;
             //MessageBox.Show("works");
-            MessageBox.Show(Convert.ToString(btn.TabIndex));
+            // MessageBox.Show(Convert.ToString(btn.TabIndex));
+            if (bombList.Contains(id))
+            {
+                MessageBox.Show("DEAD");
+            }
         }
         private int Compare_To_Bomb (int bombAmount)
         {
