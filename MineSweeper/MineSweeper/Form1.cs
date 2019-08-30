@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace MineSweeper
 {
     public partial class Form1 : Form
     {
+        Stopwatch stopwatch = new Stopwatch();
         //public static Button gButtom { get; set; }
         List<int> bombList = new List<int>();
         List<int> idList = new List<int>();
@@ -72,6 +74,10 @@ namespace MineSweeper
            
             int k = 0;
             Button btn = sender as Button;
+            if (stopwatch.ElapsedMilliseconds == 0)
+            {
+                stopwatch.Start();
+            }
             int id = btn.TabIndex;
             if (idList.Contains(id))
             {
@@ -123,13 +129,10 @@ namespace MineSweeper
             }
             else if(m == 20)
             {
-                MessageBox.Show("YOU WON");
+                MessageBox.Show("YOU WON!\nYou've spend {0} seconds.\nCongratulations!", Convert.ToString(stopwatch.ElapsedMilliseconds / 1000));
+                stopwatch.Stop();
             }
-        }
-        private int Compare_To_Bomb (int bombAmount)
-        {
             
-            return bombAmount;
         }
     }
 }
