@@ -96,17 +96,21 @@ namespace MineSweeper
             surroundList.Add(id + 6);
             surroundList.Add(id + 1);
             }
-            if (idDouble % 5 != 1 || idDouble != 1 )
+
+            // we be sorry :D
+            if (idDouble == 1 || idDouble == 6 || idDouble == 11 || idDouble == 16 || idDouble == 21)
+            {
+            }
+            else
             {
                 surroundList.Add(id - 6);
                 surroundList.Add(id - 1);
                 surroundList.Add(id + 4);
             }
             
-            
-           //foreach (int item in surroundList)
+           foreach (int item in surroundList)
             {
-               //MessageBox.Show(Convert.ToString(item));
+               MessageBox.Show(Convert.ToString(item));
             }
             //foreach (int item in bombList)
             {
