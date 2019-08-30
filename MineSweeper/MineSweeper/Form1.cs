@@ -12,14 +12,14 @@ using System.Windows.Forms;
 namespace MineSweeper
 {
     public partial class Form1 : Form
-    {
+    {   
+        //creating variables
         Stopwatch stopwatch = new Stopwatch();
-        //public static Button gButtom { get; set; }
         List<int> bombList = new List<int>();
         List<int> idList = new List<int>();
         int m = 0;
-        // add diffuclty modulus
-        //private Button btnAdd2 = new Button();
+        
+        //initializing the grid and placing mines
         public Form1()
         {
             InitializeComponent();
@@ -50,31 +50,26 @@ namespace MineSweeper
                 }
                 gButtom = new Button();
                 gButtom.Location = new System.Drawing.Point(90, 25 + j * 25);
-
             }
 
         }
 
+        //reset button handler
         private void Button1_Click(object sender, EventArgs e)
         {
-            //int id = button1.TabIndex;
-            //textBox1.AppendText(Convert.ToString(sender));
-
-
-            //this.btnAdd.Text = "Add";
-            //this.btnAdd.Size = new System.Drawing.Size(25, 25);
-            //this.Controls.Add(btnAdd2);
-            //this.btnAdd2.Location = new System.Drawing.Point(115, 25);
-            //this.btnAdd2.Size = new System.Drawing.Size(25, 25);
+            Form1 NewForm = new Form1();
+            NewForm.Show();
+            this.Dispose(false);          
         }
-        
+
+        //Dynamic event handler
         public void Button_Click(object sender, EventArgs e)
         {
 
-           
             int k = 0;
             Button btn = sender as Button;
-            if (stopwatch.ElapsedMilliseconds == 0)
+            // timer for score
+             if (stopwatch.ElapsedMilliseconds == 0)
             {
                 stopwatch.Start();
             }
@@ -85,11 +80,12 @@ namespace MineSweeper
                 m++;
             }
             double idDouble = btn.TabIndex;
+            //List for neighboring mines
             List<int> surroundList = new List<int>();
 
-
-        surroundList.Add(id - 5);
-        surroundList.Add(id + 5);
+            //logic for finding neighboring mines (Instead of using 2D array, we used the TabIndex of each individual button)
+            surroundList.Add(id - 5);
+            surroundList.Add(id + 5);
             if(idDouble % 5 != 0)
             {
             surroundList.Add(id - 4);
@@ -97,7 +93,7 @@ namespace MineSweeper
             surroundList.Add(id + 1);
             }
 
-            // we be sorry :D
+            // we be sorry for the empty if statement:D
             if (idDouble == 1 || idDouble == 6 || idDouble == 11 || idDouble == 16 || idDouble == 21)
             {
             }
@@ -107,15 +103,8 @@ namespace MineSweeper
                 surroundList.Add(id - 1);
                 surroundList.Add(id + 4);
             }
-            
-           //foreach (int item in surroundList)
-            {
-             //  MessageBox.Show(Convert.ToString(item));
-            }
-            //foreach (int item in bombList)
-            {
-              //  MessageBox.Show(" The lucky 5 numbers should be: "+ Convert.ToString(item));
-            }
+
+            //comparing lists to define specific amount of neighboring bombs
             foreach (int bomb in bombList)
             {
                 if (surroundList.Contains(bomb))
@@ -124,12 +113,12 @@ namespace MineSweeper
                 }
             }
             btn.Text = Convert.ToString(k);
-            //id = ((Button)sender).TabIndex;
-            //MessageBox.Show("works");
-            // MessageBox.Show(Convert.ToString(btn.TabIndex));
+
+            //Winning & losing conditions
             if (bombList.Contains(id))
             {
                 MessageBox.Show("DEAD");
+                
             }
             else if(m == 20)
             {
