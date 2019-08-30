@@ -95,7 +95,7 @@ namespace MineSweeper
             if (bombList.Contains(id))
             {
                 MessageBox.Show("DEAD");
-            }
+            } 
         }
         private int Compare_To_Bomb (int bombAmount)
         {
