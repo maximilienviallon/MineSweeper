@@ -108,9 +108,9 @@ namespace MineSweeper
                 surroundList.Add(id + 4);
             }
             
-           foreach (int item in surroundList)
+           //foreach (int item in surroundList)
             {
-               MessageBox.Show(Convert.ToString(item));
+             //  MessageBox.Show(Convert.ToString(item));
             }
             //foreach (int item in bombList)
             {
@@ -133,7 +133,7 @@ namespace MineSweeper
             }
             else if(m == 20)
             {
-                MessageBox.Show("YOU WON!\nYou've spend {0} seconds.\nCongratulations!", Convert.ToString(stopwatch.ElapsedMilliseconds / 1000));
+                MessageBox.Show("YOU WON in: " + Convert.ToString(stopwatch.ElapsedMilliseconds / 1000) + " seconds!");
                 stopwatch.Stop();
             }
             
