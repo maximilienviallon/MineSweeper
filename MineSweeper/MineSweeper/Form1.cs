@@ -14,19 +14,25 @@ namespace MineSweeper
     {
         //public static Button gButtom { get; set; }
         List<int> bombList = new List<int>();
+        List<int> idList = new List<int>();
+        int m = 0;
+        // add diffuclty modulus
         //private Button btnAdd2 = new Button();
         public Form1()
         {
             InitializeComponent();
             Button gButtom;
             Random random = new Random();
-           
+            for (int i = 0; i < 25; i++)
+            {
+                idList.Add(i + 1);
+            }
             for (int j = 0; j < 5; j++)
             {
                 int randomNumber = random.Next(1, 26);
                 while (bombList.Contains(randomNumber))
                 {
-                     randomNumber = random.Next(1, 26);
+                    randomNumber = random.Next(1, 26);
                 }
                 bombList.Add(randomNumber);
 
@@ -35,13 +41,14 @@ namespace MineSweeper
                 {
                     gButtom = new Button();
                     Controls.Add(gButtom);
-                    gButtom.Location = new System.Drawing.Point(90 + i * 25, 25+j*25);
+                    gButtom.Location = new System.Drawing.Point(90 + i * 25, 25 + j * 25);
                     gButtom.Size = new System.Drawing.Size(25, 25);
                     gButtom.BackColor = Color.LightGray;
                     gButtom.Click += new System.EventHandler(this.Button_Click);
                 }
                 gButtom = new Button();
-                gButtom.Location = new System.Drawing.Point(90, 25+j*25);
+                gButtom.Location = new System.Drawing.Point(90, 25 + j * 25);
+
             }
 
         }
@@ -51,7 +58,7 @@ namespace MineSweeper
             //int id = button1.TabIndex;
             //textBox1.AppendText(Convert.ToString(sender));
 
-            
+
             //this.btnAdd.Text = "Add";
             //this.btnAdd.Size = new System.Drawing.Size(25, 25);
             //this.Controls.Add(btnAdd2);
@@ -61,21 +68,39 @@ namespace MineSweeper
         
         public void Button_Click(object sender, EventArgs e)
         {
+
+           
             int k = 0;
             Button btn = sender as Button;
             int id = btn.TabIndex;
-            List<int> surroundList = new List<int>();
-            surroundList.Add(id - 6);
-            surroundList.Add(id - 5);
-            surroundList.Add(id - 4);
-            surroundList.Add(id - 1);
-            surroundList.Add(id + 1);
-            surroundList.Add(id + 4);
-            surroundList.Add(id + 5);
-            surroundList.Add(id + 6);
-            //foreach (int item in surroundList)
+            if (idList.Contains(id))
             {
-              //  MessageBox.Show(Convert.ToString(item));
+                idList.Remove(id);
+                m++;
+            }
+            double idDouble = btn.TabIndex;
+            List<int> surroundList = new List<int>();
+
+
+        surroundList.Add(id - 5);
+        surroundList.Add(id + 5);
+            if(idDouble % 5 != 0)
+            {
+            surroundList.Add(id - 4);
+            surroundList.Add(id + 6);
+            surroundList.Add(id + 1);
+            }
+            if (idDouble % 5 != 1 || idDouble != 1 )
+            {
+                surroundList.Add(id - 6);
+                surroundList.Add(id - 1);
+                surroundList.Add(id + 4);
+            }
+            
+            
+           //foreach (int item in surroundList)
+            {
+               //MessageBox.Show(Convert.ToString(item));
             }
             //foreach (int item in bombList)
             {
@@ -95,7 +120,11 @@ namespace MineSweeper
             if (bombList.Contains(id))
             {
                 MessageBox.Show("DEAD");
-            } 
+            }
+            else if(m == 20)
+            {
+                MessageBox.Show("YOU WON");
+            }
         }
         private int Compare_To_Bomb (int bombAmount)
         {
